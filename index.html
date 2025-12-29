@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 3D Particle System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <!-- Video element for MediaPipe (hidden) -->
+    <video id="input_video" style="display: none;"></video>
+    
+    <!-- UI Overlay -->
+    <div id="ui-panel">
+        <div class="control-group">
+            <h3>Models</h3>
+            <div class="model-buttons">
+                <button class="model-btn active" data-model="heart">❤️ Heart</button>
+                <button class="model-btn" data-model="flower">🌸 Flower</button>
+                <button class="model-btn" data-model="saturn">🪐 Saturn</button>
+                <button class="model-btn" data-model="fireworks">🎆 Fireworks</button>
+                <button class="model-btn" data-model="buddha">🧘 Buddha</button>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <h3>Color</h3>
+            <input type="color" id="color-picker" value="#ff0055">
+        </div>
+        
+        <div class="control-group">
+            <h3>Status</h3>
+            <div id="status-indicator">Waiting for camera...</div>
+        </div>
+    </div>
+
+    <button id="fullscreen-btn">⛶</button>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
