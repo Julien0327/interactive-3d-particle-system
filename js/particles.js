@@ -119,6 +119,64 @@ export class ParticleShapeGenerator {
         return positions;
     }
 
+    createTree() {
+        // Christmas Tree: stacked conical foliage layers + trunk
+        const positions = new Float32Array(this.particleCount * 3);
+        let idx = 0;
+
+        const addPoint = (x, y, z) => {
+            if (idx >= positions.length) return;
+            positions[idx++] = x;
+            positions[idx++] = y;
+            positions[idx++] = z;
+        };
+
+        // Trunk: small vertical cylinder at base
+        const trunkCount = Math.floor(this.particleCount * 0.08);
+        for (let i = 0; i < trunkCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const r = Math.sqrt(Math.random()) * 0.15;
+            const y = -2.2 + Math.random() * 0.6; // trunk vertical span
+            const x = Math.cos(angle) * r;
+            const z = Math.sin(angle) * r;
+            addPoint(x, y, z);
+        }
+
+        // Foliage: multiple conical layers
+        const layers = 5;
+        const foliageCount = Math.floor(this.particleCount * 0.85);
+        for (let l = 0; l < layers; l++) {
+            const layerRadius = 2.2 * (1 - l / layers); // larger at bottom
+            const layerHeight = -1.6 + l * 0.9; // stack upwards
+            const count = Math.floor(foliageCount / layers);
+            for (let i = 0; i < count; i++) {
+                // Sample within a cone: radial distribution biased towards edge
+                const u = Math.random();
+                const r = layerRadius * Math.pow(u, 0.5) * (0.6 + Math.random() * 0.4);
+                const angle = Math.random() * Math.PI * 2;
+                const x = Math.cos(angle) * r;
+                const z = Math.sin(angle) * r;
+                // Height decreases with radius to form a cone
+                const y = layerHeight + (1 - r / layerRadius) * 0.9 * Math.random();
+                addPoint(x, y, z);
+            }
+        }
+
+        // Decorations / Snowflakes around tree (small aura)
+        while (idx < positions.length) {
+            const r = 2.6 + Math.random() * 1.4;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            addPoint(
+                r * Math.sin(phi) * Math.cos(theta),
+                -1 + (Math.random() - 0.5) * 4,
+                r * Math.sin(phi) * Math.sin(theta)
+            );
+        }
+
+        return positions;
+    }
+
     createBuddha() {
         // Abstract Meditating Figure (Point Cloud)
         const positions = new Float32Array(this.particleCount * 3);

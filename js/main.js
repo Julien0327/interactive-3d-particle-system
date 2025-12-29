@@ -136,7 +136,7 @@ function changeModel(modelName) {
         case 'flower': newPos = shapeGenerator.createFlower(); break;
         case 'saturn': newPos = shapeGenerator.createSaturn(); break;
         case 'fireworks': newPos = shapeGenerator.createFireworks(); break;
-        case 'buddha': newPos = shapeGenerator.createBuddha(); break;
+        case 'tree': newPos = shapeGenerator.createTree(); break;
         default: newPos = shapeGenerator.createHeart();
     }
 
